@@ -5,17 +5,17 @@ import portfolio4 from "@/assets/portfolio-4.jpg";
 
 const portfolioItems = [
   {
-    title: "T-shirt Street Art",
+    title: "sweatshirt à capuche Personnalisé",
     category: "Impression textile",
     image: portfolio1,
   },
   {
-    title: "Mug Personnalisé",
+    title: "T-Shirt Personnalisé",
     category: "Accessoires",
     image: portfolio2,
   },
   {
-    title: "Tote Bag Créatif",
+    title: "sweatshirt à capuche Sérigraphié",
     category: "Impression textile",
     image: portfolio3,
   },

@@ -40,7 +40,7 @@ const About = () => {
 
             <div className="grid grid-cols-3 gap-6 pt-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-accent mb-2">500+</div>
+                <div className="text-4xl font-bold text-accent mb-2">50+</div>
                 <div className="text-sm text-muted-foreground">Projets réalisés</div>
               </div>
               <div className="text-center">
@@ -48,7 +48,7 @@ const About = () => {
                 <div className="text-sm text-muted-foreground">Satisfaction client</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-accent mb-2">24h</div>
+                <div className="text-4xl font-bold text-accent mb-2">48h</div>
                 <div className="text-sm text-muted-foreground">Livraison rapide</div>
               </div>
             </div>

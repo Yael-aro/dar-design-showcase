@@ -6,6 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
+ <img 
+        src="/favicon.ico" 
+        alt="Logo" 
+        style={{ width: "150px", height: "150px" }} 
+      />
+
 const queryClient = new QueryClient();
 
 const App = () => (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/NEW.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,47 +38,47 @@ const Header = () => {
         isScrolled ? "bg-background/95 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="text-2xl font-bold tracking-tight">
-              <span className="text-primary">DAR</span>
-              <span className="text-accent"> DESIGN</span>
-            </div>
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        {/* Logo + Texte */}
+        <div className="flex items-center space-x-2">
+          <img src={logo} alt="Dar Design logo" className="h-32 w-auto" />
+
+          <div className="text-2xl font-bold tracking-tight">
+            <span className="text-primary">DAR</span>
+            <span className="text-accent"> DESIGN</span>
           </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-sm font-medium text-foreground hover:text-accent transition-colors"
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button
-              onClick={() => scrollToSection("contact")}
-              className="bg-accent text-accent-foreground hover:shadow-[0_0_20px_hsl(45_100%_55%/0.5)] transition-all"
-            >
-              Demande ton design
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="text-sm font-medium text-foreground hover:text-accent transition-colors"
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* CTA Button */}
+        <div className="hidden md:block">
+          <Button
+            onClick={() => scrollToSection("contact")}
+            className="bg-accent text-accent-foreground hover:shadow-[0_0_20px_hsl(45_100%_55%/0.5)] transition-all"
+          >
+            Demandez votre design
+          </Button>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-foreground"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
@@ -95,7 +96,7 @@ const Header = () => {
               onClick={() => scrollToSection("contact")}
               className="w-full bg-accent text-accent-foreground"
             >
-              Demande ton design
+              Demandez votre design
             </Button>
           </nav>
         )}

@@ -1,62 +1,74 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Star } from "lucide-react";
+import { useState, useEffect } from "react";
 
-const testimonials = [
-  {
-    name: "Salma",
-    text: "Super qualité d'impression ! Je recommande vivement DAR DESIGN pour tous vos projets créatifs.",
-    rating: 5,
-  },
-  {
-    name: "Amine",
-    text: "Mon logo rendu parfait sur mon t-shirt. L'équipe est professionnelle et à l'écoute.",
-    rating: 5,
-  },
-  {
-    name: "Yasmine",
-    text: "Service impeccable, délais respectés. Mes tote bags personnalisés sont magnifiques !",
-    rating: 5,
-  },
-];
+const CommentSection = () => {
+  const [comments, setComments] = useState<{ _id: string; name: string; text: string }[]>([]);
+  const [name, setName] = useState("");
+  const [text, setText] = useState("");
 
-const Testimonials = () => {
+  // Charger les commentaires depuis le backend
+  useEffect(() => {
+    fetch("http://localhost:5000/api/comments")
+      .then((res) => res.json())
+      .then((data) => setComments(data));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name || !text) return;
+
+    const res = await fetch("http://localhost:5000/api/comments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, text }),
+    });
+
+    if (res.ok) {
+      const newComment = await res.json();
+      setComments([newComment, ...comments]);
+      setName("");
+      setText("");
+    }
+  };
+
   return (
-    <section className="py-24 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 animate-slide-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Avis <span className="text-accent">Clients</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Ce que nos clients disent de leur expérience avec DAR DESIGN
-          </p>
-        </div>
+    <section className="py-12 bg-background">
+      <div className="max-w-3xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Commentaires</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="border-border/50 hover:border-accent/50 transition-all duration-300 hover:shadow-xl animate-slide-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardContent className="p-6 space-y-4">
-                <div className="flex gap-1">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                  ))}
-                </div>
-                
-                <p className="text-muted-foreground italic">
-                  "{testimonial.text}"
-                </p>
-                
-                <div className="pt-4 border-t border-border">
-                  <p className="font-semibold text-foreground">
-                    — {testimonial.name}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+        {/* Formulaire */}
+        <form onSubmit={handleSubmit} className="space-y-4 mb-8">
+          <input
+            type="text"
+            placeholder="Votre nom"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-3 border border-border rounded-lg"
+            required
+          />
+          <textarea
+            placeholder="Votre commentaire"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="w-full p-3 border border-border rounded-lg"
+            rows={4}
+            required
+          />
+          <button
+            type="submit"
+            className="bg-accent text-white px-6 py-3 rounded-lg hover:bg-accent/80 transition-colors"
+          >
+            Envoyer
+          </button>
+        </form>
+
+        {/* Liste des commentaires */}
+        <div className="space-y-4">
+          {comments.length === 0 && <p className="text-center text-muted-foreground">Aucun commentaire pour l'instant.</p>}
+          {comments.map((c) => (
+            <div key={c._id} className="border p-4 rounded-lg bg-white shadow-sm">
+              <p className="italic text-muted-foreground">"{c.text}"</p>
+              <p className="font-semibold mt-2">— {c.name}</p>
+            </div>
           ))}
         </div>
       </div>
@@ -64,4 +76,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default CommentSection;

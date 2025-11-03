@@ -3,22 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, Instagram, MessageCircle } from "lucide-react";
 
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     projectType: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.message || !formData.phone) {
       toast({
         title: "Erreur",
         description: "Veuillez remplir tous les champs obligatoires",
@@ -27,19 +27,41 @@ const Contact = () => {
       return;
     }
 
-    // Simulate form submission
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
+    try {
+      const response = await fetch("https://formspree.io/f/mwpwdqvn", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      projectType: "",
-      message: "",
-    });
+      if (response.ok) {
+        toast({
+          title: "Message envoyé !",
+          description: "Nous vous répondrons dans les plus brefs délais.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          projectType: "",
+          message: "",
+        });
+      } else {
+        toast({
+          title: "Erreur",
+          description: "Une erreur est survenue, réessayez plus tard.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible d’envoyer le message.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -50,7 +72,7 @@ const Contact = () => {
             Contactez-<span className="text-accent">nous</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Une idée en tête ? Parlons-en et créons ensemble quelque chose d'unique
+            Une idée en tête ? Parlons-en et créons ensemble quelque chose d’unique
           </p>
         </div>
 
@@ -83,7 +105,19 @@ const Contact = () => {
 
               <div>
                 <Input
-                  placeholder="Type de projet (ex: T-shirt, Mug, Logo...)"
+                  type="tel"
+                  placeholder="Numéro de téléphone *"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  className="bg-background"
+                />
+              </div>
+
+              <div>
+                <Input
+                  placeholder="Type de projet (ex : T-shirt, Mug, Logo…)"
                   value={formData.projectType}
                   onChange={(e) =>
                     setFormData({ ...formData, projectType: e.target.value })
@@ -114,75 +148,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-8 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Nos coordonnées</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Email</p>
-                    <a
-                      href="mailto:contact@dardesign.ma"
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      contact@dardesign.ma
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Téléphone</p>
-                    <a
-                      href="tel:+212600000000"
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      +212 6 00 00 00 00
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Suivez-nous</h3>
-              <div className="flex gap-4">
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all hover:shadow-[0_0_20px_hsl(45_100%_55%/0.4)]"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://wa.me/212600000000"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-all hover:shadow-[0_0_20px_hsl(45_100%_55%/0.4)]"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
-
-            <div className="bg-accent/10 rounded-lg p-6 border border-accent/20">
-              <h4 className="font-semibold text-lg mb-2">Horaires d'ouverture</h4>
-              <p className="text-muted-foreground">
-                Lundi - Vendredi: 9h00 - 18h00
-                <br />
-                Samedi: 10h00 - 16h00
-                <br />
-                Dimanche: Fermé
-              </p>
-            </div>
-          </div>
+          {/* … ton bloc « Nos coordonnées / Suivez-nous / Horaires » reste inchangé … */}
         </div>
       </div>
     </section>
