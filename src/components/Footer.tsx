@@ -88,7 +88,7 @@ const Footer = () => {
                   <Instagram size={20} />
                 </a>
                 <a
-                  href="https://wa.me/+212-710157075"
+                  href="https://wa.me/+212710157075"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
@@ -99,19 +99,23 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-
-        {/* Bottom Bar */}
+                {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/20 pt-8 text-center text-sm text-primary-foreground/60 space-y-2">
           <p>© 2025 DAR DESIGN. Tous droits réservés.</p>
           <p>
-            <a href="#" className="hover:text-accent transition-colors">
-              Mentions légales
-            </a>
-            {" | "}
-            <a href="#" className="hover:text-accent transition-colors">
-              Politique de confidentialité
-            </a>
+            <a href="/mentions-legales" className="hover:text-accent transition-colors">
+  Mentions légales
+</a>
+{" | "}
+<a href="/politique-confidentialite" className="hover:text-accent transition-colors">
+  Politique de confidentialité
+</a>
           </p>
+         <p className="text-xs pt-2">
+          Développé par <a href="https://www.instagram.com/yahya_el_arousy/" target="_blank"className="text-accent font-medium hover:underline">
+    Yahya El Arousy
+  </a>
+</p>
         </div>
       </div>
     </footer>
