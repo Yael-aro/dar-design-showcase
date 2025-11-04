@@ -80,7 +80,7 @@ const Footer = () => {
               <li>+212-710157075 </li>
               <li className="flex justify-center md:justify-start gap-3 pt-2">
                 <a
-                  href="https://www.instagram.com/dar_design.art/"
+                  href="https://www.instagram.com/dar_design.pro/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
