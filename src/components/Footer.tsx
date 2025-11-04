@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="flex flex-col items-center space-y-4">
           <img src={logo} alt="Dar Design logo" className="h-32 w-auto" />
           <p className="text-primary-foreground/80 text-center text-sm">
-            Transformons vos idées en créations uniques depuis 2020.
+            Transformons vos idées en créations uniques depuis 2024.
           </p>
         </div>
 
@@ -77,7 +77,7 @@ const Footer = () => {
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
               <li>dar.design33@gmail.com</li>
-              <li>+212710157075 </li>
+              <li>+212-710157075 </li>
               <li className="flex justify-center md:justify-start gap-3 pt-2">
                 <a
                   href="https://www.instagram.com/dar_design.art/"
@@ -88,7 +88,7 @@ const Footer = () => {
                   <Instagram size={20} />
                 </a>
                 <a
-                  href="https://wa.me/+212710157075"
+                  href="https://wa.me/+212-710157075"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-accent transition-colors"
