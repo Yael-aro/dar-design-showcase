@@ -22,7 +22,6 @@ const Index = () => {
       <Testimonials />
       <Contact />
       <Footer />
-      <CommentSection />
     </div>
   );
 };
