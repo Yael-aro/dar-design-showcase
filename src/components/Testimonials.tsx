@@ -33,7 +33,7 @@ const CommentSection = () => {
   const [error, setError] = useState("");
   const [showModeration, setShowModeration] = useState(false);
   const [moderationPassword, setModerationPassword] = useState("");
-  const ADMIN_PASSWORD = "dardesign2024"; // Change ce mot de passe !
+  const ADMIN_PASSWORD = "azerty"; // Change ce mot de passe !
 
   useEffect(() => {
     loadComments();
