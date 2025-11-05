@@ -202,9 +202,6 @@ const CommentSection = () => {
                   onChange={(e) => setModerationPassword(e.target.value)}
                   className="w-full p-3 border rounded-lg mb-2"
                 />
-                <p className="text-xs text-muted-foreground">
-                  Mot de passe par défaut: dardesign2024
-                </p>
               </div>
             ) : (
               <div>
