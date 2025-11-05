@@ -6,6 +6,10 @@ import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import CommentSection from "@/components/Testimonials";
+
+// Dans le return:
+
 
 const Index = () => {
   return (
@@ -18,6 +22,7 @@ const Index = () => {
       <Testimonials />
       <Contact />
       <Footer />
+      <CommentSection />
     </div>
   );
 };

@@ -1,12 +1,24 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, User, Star, Shield, Trash2 } from "lucide-react";
+import { 
+  collection, 
+  addDoc, 
+  getDocs, 
+  deleteDoc, 
+  doc, 
+  updateDoc, 
+  query, 
+  orderBy,
+  Timestamp 
+} from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 interface Comment {
   id: string;
   name: string;
   text: string;
   rating: number;
-  date: string;
+  date: Date;
   approved: boolean;
 }
 
@@ -27,96 +39,93 @@ const CommentSection = () => {
     loadComments();
   }, []);
 
-  const loadComments = () => {
+  const loadComments = async () => {
     try {
-      // Charger les commentaires approuvés
-      const approvedData = localStorage.getItem("dardesign_approved_comments");
-      const approved = approvedData ? JSON.parse(approvedData) : [];
+      const commentsRef = collection(db, "comments");
+      const q = query(commentsRef, orderBy("date", "desc"));
+      const querySnapshot = await getDocs(q);
       
-      // Charger les commentaires en attente
-      const pendingData = localStorage.getItem("dardesign_pending_comments");
-      const pending = pendingData ? JSON.parse(pendingData) : [];
+      const allComments: Comment[] = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        allComments.push({
+          id: doc.id,
+          name: data.name,
+          text: data.text,
+          rating: data.rating,
+          date: data.date.toDate(),
+          approved: data.approved,
+        });
+      });
 
-      setComments(approved.sort((a: Comment, b: Comment) => 
-        new Date(b.date).getTime() - new Date(a.date).getTime()
-      ));
-      setPendingComments(pending.sort((a: Comment, b: Comment) => 
-        new Date(b.date).getTime() - new Date(a.date).getTime()
-      ));
+      setComments(allComments.filter(c => c.approved));
+      setPendingComments(allComments.filter(c => !c.approved));
     } catch (err) {
       console.error("Erreur de chargement:", err);
+      setError("Erreur lors du chargement des commentaires");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !text.trim() || rating === 0) {
       setError("Veuillez remplir tous les champs et donner une note");
       return;
     }
 
-    const newComment: Comment = {
-      id: `comment_${Date.now()}`,
-      name: name.trim(),
-      text: text.trim(),
-      rating,
-      date: new Date().toISOString(),
-      approved: false,
-    };
-
     try {
-      const pending = [...pendingComments, newComment];
-      localStorage.setItem("dardesign_pending_comments", JSON.stringify(pending));
-      setPendingComments(pending);
+      const newComment = {
+        name: name.trim(),
+        text: text.trim(),
+        rating,
+        date: Timestamp.now(),
+        approved: false,
+      };
+
+      await addDoc(collection(db, "comments"), newComment);
+      
       setName("");
       setText("");
       setRating(0);
       setError("");
       alert("Merci ! Votre commentaire sera visible après modération.");
+      
+      // Recharger les commentaires
+      loadComments();
     } catch (err) {
+      console.error("Erreur:", err);
       setError("Erreur lors de l'envoi du commentaire");
-      console.error(err);
     }
   };
 
-  const approveComment = (comment: Comment) => {
+  const approveComment = async (comment: Comment) => {
     try {
-      // Retirer de pending
-      const newPending = pendingComments.filter(c => c.id !== comment.id);
-      localStorage.setItem("dardesign_pending_comments", JSON.stringify(newPending));
+      const commentRef = doc(db, "comments", comment.id);
+      await updateDoc(commentRef, { approved: true });
       
-      // Ajouter aux approuvés
-      const approvedComment = { ...comment, approved: true };
-      const newApproved = [approvedComment, ...comments];
-      localStorage.setItem("dardesign_approved_comments", JSON.stringify(newApproved));
-      
-      setPendingComments(newPending);
-      setComments(newApproved);
+      // Recharger les commentaires
+      loadComments();
     } catch (err) {
       console.error("Erreur d'approbation:", err);
+      alert("Erreur lors de l'approbation");
     }
   };
 
-  const deleteComment = (commentId: string, isPending: boolean) => {
+  const deleteComment = async (commentId: string) => {
     try {
-      if (isPending) {
-        const newPending = pendingComments.filter(c => c.id !== commentId);
-        localStorage.setItem("dardesign_pending_comments", JSON.stringify(newPending));
-        setPendingComments(newPending);
-      } else {
-        const newApproved = comments.filter(c => c.id !== commentId);
-        localStorage.setItem("dardesign_approved_comments", JSON.stringify(newApproved));
-        setComments(newApproved);
-      }
+      await deleteDoc(doc(db, "comments", commentId));
+      
+      // Recharger les commentaires
+      loadComments();
     } catch (err) {
       console.error("Erreur de suppression:", err);
+      alert("Erreur lors de la suppression");
     }
   };
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+  const formatDate = (date: Date) => {
     return date.toLocaleDateString("fr-FR", {
       day: "numeric",
       month: "long",
@@ -221,7 +230,7 @@ const CommentSection = () => {
                               Approuver
                             </button>
                             <button
-                              onClick={() => deleteComment(comment.id, true)}
+                              onClick={() => deleteComment(comment.id)}
                               className="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600"
                             >
                               <Trash2 size={14} />
@@ -229,6 +238,9 @@ const CommentSection = () => {
                           </div>
                         </div>
                         <p className="text-sm">{comment.text}</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {formatDate(comment.date)}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -248,7 +260,7 @@ const CommentSection = () => {
                           <p className="text-xs text-muted-foreground line-clamp-1">{comment.text}</p>
                         </div>
                         <button
-                          onClick={() => deleteComment(comment.id, false)}
+                          onClick={() => deleteComment(comment.id)}
                           className="text-red-500 hover:text-red-700 ml-2"
                         >
                           <Trash2 size={16} />
