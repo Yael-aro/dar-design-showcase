@@ -7,6 +7,7 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CommentSection from "@/components/Testimonials";
+import SEO from "@/components/SEO";
 
 // Dans le return:
 
@@ -22,6 +23,7 @@ const Index = () => {
       <Testimonials />
       <Contact />
       <Footer />
+      <SEO />
     </div>
   );
 };

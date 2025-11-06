@@ -29,7 +29,7 @@ const portfolioItems = [
     image: portfolio4,
   },
   {
-    title: "Casquette Brodée sur mesure",
+    title: "Casquette sur mesure",
     category: "Broderie",
     image: portfolio5,
   },
