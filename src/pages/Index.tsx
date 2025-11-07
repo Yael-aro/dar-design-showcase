@@ -8,6 +8,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CommentSection from "@/components/Testimonials";
 import SEO from "@/components/SEO";
+import DarkModeToggle from "@/components/DarkModeToggle";
 
 // Dans le return:
 
@@ -24,6 +25,7 @@ const Index = () => {
       <Contact />
       <Footer />
       <SEO />
+      <DarkModeToggle />
     </div>
   );
 };
