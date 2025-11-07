@@ -72,7 +72,7 @@ const PolitiqueConfidentialite = () => {
               Pour exercer vos droits ou pour toute question concernant cette politique de confidentialité, vous pouvez nous contacter :
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-1">
-              <li>Par email : dar.design33@gmail.com</li>
+              <li>Par email : contact@dardesign.pro</li>
               <li>Par téléphone : +212 710 157 075</li>
               <li>Via Instagram : @dar_design.pro</li>
               <li>Via WhatsApp : +212 710 157 075</li>

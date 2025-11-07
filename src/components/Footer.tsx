@@ -76,7 +76,7 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li>dar.design33@gmail.com</li>
+              <li>contact@dardesign.pro</li>
               <li>+212-710157075 </li>
               <li className="flex justify-center md:justify-start gap-3 pt-2">
                 <a

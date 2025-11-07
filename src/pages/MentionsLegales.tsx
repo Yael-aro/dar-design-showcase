@@ -28,7 +28,7 @@ const MentionsLegales = () => {
             <h2 className="text-2xl font-bold text-primary mb-4">1. Informations légales</h2>
             <div className="space-y-2 text-muted-foreground">
               <p><strong>Nom de l'entreprise :</strong> DAR DESIGN</p>
-              <p><strong>Email :</strong> dar.design33@gmail.com</p>
+              <p><strong>Email :</strong> contact@dardesign.pro </p>
               <p><strong>Téléphone :</strong> +212 710 157 075</p>
               <p><strong>Adresse :</strong> Settat, Casablanca-Settat, Maroc</p>
             </div>
@@ -85,9 +85,9 @@ const MentionsLegales = () => {
               Pour toute question concernant les mentions légales, vous pouvez nous contacter :
             </p>
             <ul className="list-disc list-inside text-muted-foreground mt-2 space-y-1">
-              <li>Par email : dar.design33@gmail.com</li>
+              <li>Par email : contact@dardesign.pro</li>
               <li>Par téléphone : +212 710 157 075</li>
-              <li>Via Instagram : @dar_design.pro</li>
+              <li >Via Instagram : @dar_design.pro</li>
               <li>Via WhatsApp : +212 710 157 075</li>
             </ul>
           </section>
