@@ -10,8 +10,6 @@ import CommentSection from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import DarkModeToggle from "@/components/DarkModeToggle";
 
-// Dans le return:
-
 
 const Index = () => {
   return (
