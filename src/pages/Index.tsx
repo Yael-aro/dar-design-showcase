@@ -10,11 +10,14 @@ import CommentSection from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import DarkModeToggle from "@/components/DarkModeToggle";
 import IntroAnimation from "@/components/IntroAnimation";
+import UnderConstruction from "./UnderConstruction";
+import MaintenanceBanner from "@/components/MaintenanceBanner";
 
 
 const Index = () => {
   return (
     <div className="min-h-screen">
+      
       <Header />
       <Hero />
       <Services />
