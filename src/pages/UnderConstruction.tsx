@@ -73,11 +73,6 @@ const UnderConstruction = () => {
           Site en <span className="text-accent">Construction</span>
         </h1>
 
-        <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-2xl mx-auto">
-          Nous préparons quelque chose d'exceptionnel pour vous ! 
-          Notre nouveau site arrive bientôt avec de nouvelles fonctionnalités incroyables.
-        </p>
-
         {/* Compte à rebours */}
         <div className="mb-16">
           <div className="flex items-center justify-center gap-2 mb-6">
