@@ -7,7 +7,7 @@ const IntroAnimation = () => {
   const [showSubtext, setShowSubtext] = useState(false);
   const [showIcons, setShowIcons] = useState(false);
   
-  const fullText = "DAR DESIGN";
+  const fullText = "Welcome to DAR DESIGN";
   const subText = "Ton style, notre art";
 
   useEffect(() => {
