@@ -1,8 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import heroImage from "@/assets/hero-printing.jpg";
+import { useState, useEffect } from "react";
+import heroImage1 from "@/assets/hero-printing.jpg";
+import heroImage2 from "@/assets/hero-change.jpg";
 
 const Hero = () => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [heroImage1, heroImage2];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 5000); // Change d'image toutes les 5 secondes
+
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -15,13 +28,22 @@ const Hero = () => {
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
-      {/* Background Image */}
+      {/* Background Images avec transition */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="DAR DESIGN Studio"
-          className="w-full h-full object-cover"
-        />
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentImage ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={image}
+              alt={`DAR DESIGN Studio ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-background"></div>
       </div>
 
@@ -64,6 +86,22 @@ const Hero = () => {
         <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
           <div className="w-1.5 h-3 bg-white/50 rounded-full"></div>
         </div>
+      </div>
+
+      {/* Indicateurs de slide */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImage(index)}
+            className={`w-3 h-3 rounded-full transition-all ${
+              index === currentImage
+                ? "bg-white w-8"
+                : "bg-white/50 hover:bg-white/70"
+            }`}
+            aria-label={`Aller à l'image ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

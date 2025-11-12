@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import CommentSection from "@/components/Testimonials";
 import SEO from "@/components/SEO";
 import DarkModeToggle from "@/components/DarkModeToggle";
+import IntroAnimation from "@/components/IntroAnimation";
 
 
 const Index = () => {
@@ -24,6 +25,7 @@ const Index = () => {
       <Footer />
       <SEO />
       <DarkModeToggle />
+      <IntroAnimation />
     </div>
   );
 };
