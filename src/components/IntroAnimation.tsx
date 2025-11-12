@@ -35,9 +35,9 @@ const IntroAnimation = () => {
         setTimeout(() => {
           setIsVisible(false);
           sessionStorage.setItem("hasSeenIntro", "true");
-        }, 3000);
+        }, 4000);
       }
-    }, 150); // 150ms entre chaque lettre
+    }, 100); // 150ms entre chaque lettre
 
     return () => clearInterval(typingInterval);
   }, []);
