@@ -69,9 +69,6 @@ const UnderConstruction = () => {
         </div>
 
         {/* Titre principal */}
-        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in">
-          Site en <span className="text-accent">Construction</span>
-        </h1>
 
         {/* Compte à rebours */}
         <div className="mb-16">
@@ -154,7 +151,7 @@ const UnderConstruction = () => {
             href="mailto:dar.design33@gmail.com" 
             className="text-accent hover:underline"
           >
-            dar.design33@gmail.com
+            contact@dardesign.pro
           </a>
           <span className="mx-2">|</span>
           <a 
