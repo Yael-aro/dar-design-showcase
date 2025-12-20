@@ -113,7 +113,7 @@ const Footer = () => {
           </p>
          <p className="text-xs pt-2">
           Développé par <a href="https://www.instagram.com/yahya_el_arousy/" target="_blank"className="text-accent font-medium hover:underline">
-    Yahya El Arousy
+    Sidi Moulay Yahya
   </a>
 </p>
         </div>
