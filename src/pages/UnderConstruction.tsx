@@ -14,7 +14,7 @@ const UnderConstruction2008 = () => {
 
   const currentDate = new Date();
 
-  const launchDate = new Date("2024-11-28T00:00:00").getTime();
+  const launchDate = new Date("2026-02-28T00:00:00").getTime();
 
   useEffect(() => {
     const interval = setInterval(() => {

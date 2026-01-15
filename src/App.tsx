@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import MentionsLegales from "./pages/MentionsLegales";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
+import UnderConstruction2008 from "./pages/UnderConstruction";
 
 const queryClient = new QueryClient();
 
@@ -27,4 +28,4 @@ const App = () => (
   </QueryClientProvider>
 );
 
-export default App;
+export default UnderConstruction2008;

@@ -26,11 +26,14 @@ const Header = () => {
 
   const navItems = [
     { label: "Accueil", id: "hero" },
-    { label: "Nos services", id: "services" },
+    { label: " services", id: "services" },
     { label: "Nos réalisations", id: "portfolio" },
     { label: "À propos", id: "about" },
     { label: "Contact", id: "contact" },
   ];
+  const perso = [
+        { label: "Personaliser" , id: "personaliser"},
+  ]
 
   return (
     <header
@@ -60,6 +63,8 @@ const Header = () => {
               {item.label}
             </button>
           ))}
+        </nav>
+        <nav className="hidden md:flex items-center space-x-8">
         </nav>
 
         {/* CTA Button */}

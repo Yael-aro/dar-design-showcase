@@ -28,7 +28,6 @@ const Index = () => {
       <Footer />
       <SEO />
       <DarkModeToggle />
-      <IntroAnimation />
     </div>
   );
 };
